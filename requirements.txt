@@ -1,1 +1,1 @@
-pip install plotly
+python -m pip install plotly
