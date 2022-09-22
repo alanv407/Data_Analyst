@@ -1,5 +1,5 @@
 #Librerias
-python -m pip install plotly
+python -m pip install plotly == 22.2.2
 import streamlit as st
 import pandas as pd
 import plotly.express as px
