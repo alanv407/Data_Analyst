@@ -77,7 +77,7 @@ tab5, tab6, tab7 = st.tabs(['Máster Universitario 🇪🇸','Licenciatura 🇲�
 
 with tab5:
 	st.subheader('Dirección de Marketing y Gestión Comercial')
-	st.markdown('EAE BUSINESS SCHOOL / UNIVERSITAT POLITÉCNICA DE CATALUNYA')
+	st.markdown('EAE BUSINESS SCHOOL / UNIVERSITAT POLITÈCNICA DE CATALUNYA')
 	st.caption('2017 - 2018')
 
 with tab6:
