@@ -5,7 +5,7 @@ import plotly.express as px
 
 #Configurarción Páginas
 st.set_page_config(
-	page_title = 'Caso Mercado Libre',
+	page_title = 'Análisis de Caso',
 	page_icon = '🛒',
 	)
 st.title('Inicio')
