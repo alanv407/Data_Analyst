@@ -6,11 +6,11 @@ import plotly.figure_factory as ff
 
 #Configurarción Páginas
 st.set_page_config(
-	page_title = 'Caso Mercado Libre',
+	page_title = 'Caso Logistica',
 	page_icon = '🛒',
 	)
 
-st.title('📈📊 Análisis Caso MeLi 📈📊')
+st.title('📈📊 Análisis Caso 📈📊')
 
 st.subheader('El objetivo de realizar el proyecto usando esta herramienta son los siguientes: ')
 
@@ -19,8 +19,7 @@ with st.expander("Saber un poco más"):
     st.write("""
         - Poder realizar el ejercicio varias veces con data actualizada  y de forma automatizada\n 
         - El obtener datos estadísticos es mucho más fácil y rápido que en un Excel \n
-        - En caso de superar más de un ±1,040,000 filas no podríamos realizar el ejercicio en Excel \n 
-        - No tengo Excel ni Power BI en mi computadora 
+        - En caso de superar más de un ±1,040,000 filas no podríamos realizar el ejercicio en Excel \n
     """)
 
 #Obtención de la data
