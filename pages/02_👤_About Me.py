@@ -6,26 +6,26 @@ from PIL import Image
 
 #Configurarción Páginas
 st.set_page_config(
-	page_title = 'Caso Mercado Libre',
+	page_title = 'Case Analysis',
 	page_icon = '🛒',
 	)
 
-st.title('***Alan Arturo Vargas Andrade***')
-st.title('Sobre Mi')
+st.title('***Arturo Vargas***')
+st.title('About Me')
 
-with st.expander("Saber un poco más"):
+with st.expander("Know a bit more"):
     st.write("""
-        Soy el tipo de persona que no le teme a los desafíos, me gusta aportar innovación y motivación al equipo de trabajo. \n 
-        Me describo como una persona dinámica, analítica, con gran facilidad para aprender y orientado a resultados. \n
+        I am the kind of person who is not afraid of challenges, I like to bring innovation and motivation to the work team. \n 
+        I describe myself as a dynamic, analytical person, easy to learn and results-oriented. \n
     """)
 
 
-st.header('Experiencia Profesional')
+st.header('Work History')
 
-with st.expander("Saber un poco más"):
+with st.expander("Skills"):
     st.write("""
-        Cuento con experiencia en manipulación e interpretación de datos. \n 
-        Las herramientas que más uso son; SQL, Power BI, Python y Excel.
+        I have experience handling and interpreting data. \n
+        The tools that I use most are; SQL, Power BI, Python and Excel.
     """)
 
 st.header('Empleos Anteriores')
