@@ -110,8 +110,8 @@ df_fig1 = df_fig1.sort_values(by='DS%', ascending = False)
 df_fig1 = df_fig1.reset_index()
 fig1 = px.bar(df_fig1, x=filtro, y='DS%')
 
-st.header('Análisis')
-st.subheader('Análisis General')
+st.header('Análysis')
+st.subheader('General Analysis')
 tab1, tab2 = st.tabs(['Delivery Success','Shimpents'])
 
 with tab1:
@@ -125,7 +125,7 @@ with tab1:
 
 
 with tab2:
-    st.caption('Gráfica de distribución Shipments')
+    st.caption('Shipments Distribution')
     st.write(fig_displot_ship)
     with st.expander("Results"):
         st.write("""
