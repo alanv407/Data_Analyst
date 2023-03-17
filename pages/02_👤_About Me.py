@@ -28,7 +28,7 @@ with st.expander("Skills"):
         The tools that I use most are; SQL, Power BI, Python and Excel.
     """)
 
-st.header('Previous employments')
+st.header('Previous jobs')
 
 tab1, tab2, tab3, tab4, tab5 = st.tabs(["IQVIA", "Rappi", "MexWürst", "Wonder World Media",'Antoeli'])
 
