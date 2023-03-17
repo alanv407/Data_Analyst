@@ -44,7 +44,7 @@ with tab1:
 with tab2:
    st.subheader("Retail CPG´s Analyst")
    st.caption('2019 - 2020')
-   st.markdown('- QA Retail CPG's')
+   st.markdown('- QA Retail CPGs')
    st.markdown('- Assembly of stores, products and prices in application and Web (CMS)')
    st.markdown('- Updating and debugging of database (SQL)')
    st.markdown('- Implementation of Agile Scrum methodology (reduction of backlog, completion time and delivery of tasks, reduction of errors in promotions)')
