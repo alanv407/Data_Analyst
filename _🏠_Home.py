@@ -15,7 +15,7 @@ st.subheader('About this Web App')
 st.markdown('For the development of this Web App the Python programming language was used, the following libraries were used; Pandas, Plotly and Streamlit')
 
 st.subheader('Use of this Web App')
-st.markdown('On the left side are the different parts of this presentation; Home, About me and Case Analysis, if applicable you will also find some filters, at the bottom is the code used for this Web App')
+st.markdown('On the left side are the different parts of this presentation; Home, About me and Case Analysis, if applicable you will also find some filters.')
 
 st.subheader('More info')
 st.caption('In some cases you will find a box like the one shown below, by clicking you will see more information')
