@@ -20,7 +20,7 @@ with st.expander("Know a bit more"):
     """)
 
 
-st.header('Skills)
+st.header('Skills')
 
 with st.expander("Skills"):
     st.write("""
