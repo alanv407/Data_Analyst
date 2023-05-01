@@ -1,146 +1,139 @@
-#Librerias
+#Libraries
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import plotly.figure_factory as ff
 
-#Configurarción Páginas
+#Functions
+
+    #Normal distribution
+def GeneralDistribution(x_GeneralDistribution, GL_GeneralDistribution):
+    x = df[x_GeneralDistribution]
+    HistData = [x]
+    GroupLables = [GL_GeneralDistribution]
+    return ff.create_distplot(HistData,GroupLables)
+
+    #Box Plot
+def BoxPlot(df_BoxPlot, y_BoxPlot):
+    return px.box(df_BoxPlot, x = filter, y = y_BoxPlot)
+
+    #Bar Graph
+def BarGraph(df_BarGraph, by_BarGraph):
+    df_fig1 = df_BarGraph.groupby(by=filter).mean() \
+    .sort_values(by= by_BarGraph, ascending = False) \
+    .reset_index()
+    return px.bar(df_fig1, x=filter, y=by_BarGraph)
+
+def KPIS(groupby_KPIS, by_KPIS):
+    df_KPIS = df[[groupby_KPIS, by_KPIS]].groupby(groupby_KPIS)\
+    .mean() \
+    .sort_values(by = by_KPIS) 
+    return df_KPIS
+
+def KPI(ColA, ColB):
+    return ((df[ColA] / df[ColB]) * 100).round(1)
+
+#Page Setup
 st.set_page_config(
 	page_title = 'Supply Chain',
 	page_icon = '🛒',
 	)
 
-st.title('📈📊 Cases Analysis 📈📊')
+st.title('📈📊 Supply Chain Cases Analysis 📈📊')
 
-st.subheader('The objective of carrying out the project using this tool is as follows:')
+st.subheader('The objectives of develop the project coding in Python are as follows:')
 
-
-with st.expander("know a little more"):
+with st.expander("Know a little more"):
     st.write("""
-	 - Being able to perform the exercise several times with updated data and in an automated way\n
-         - Obtaining statistical data is much easier and faster than in Excel \n
-         - In case of exceeding more than ±1,040,000 rows, we could not perform the exercise in Excel \n
+        - Being able to perform the exercise several times with updated data and in an automated way.
+        - In case of exceeding more than ±1,040,000 rows, we could not perform the exercise in Excel.
+        - Have a place where the information and visualizations can be manipulated, with automatic updates.
     """)
 
-#Obtención de la data
-	#Guardar archivo en cahce interno para evitar que se actualice de forma seguida
-cargar = st.file_uploader('Arrastra o selecciona el ejercicio en Excel para poder continuar')
-if not cargar:
-     st.warning('Adjuntar archivo para generar visualización del Análisis')
+#Data Input
+	#Save file in cache
+data = st.file_uploader('Drag and drop a file to continue')
+if not data:
+     st.warning('Drag and drop a file to generate the analysis')
      st.stop()
 
 @st.cache(allow_output_mutation=True)
 def load_model(model_name):
-     df=pd.read_excel(cargar, dtype={'route': str})
+     df=pd.read_excel(data, dtype={'route': str})
      return(df)
-df=load_model(cargar)
+df=load_model(data)
 
-df['DS%'] = ((df['deliveries']/df['shipments'])*100).round(2)
+df['DeliverySuccess'] = ((df['deliveries']/df['shipments'])*100).round(2)
+
+#Filter
+columns = ('city','city_cluster','carrier','driver_experience','cycle_flag')
+filter = st.sidebar.radio('Choose column', columns)
+st.sidebar.write('You are seeing: ', filter)
 
 #DATA
 st.header('What we have here?')
 st.subheader('DataFrame')
-st.caption('Only the first 100 rows are displayed')
-st.dataframe(df.head(100))
-st.write('The Dataframe dimensions are as follows (Rows, Columns):',df.shape)
-with st.expander("Analysis result"):
-    st.write("""
-        The information contained in the Excel: \n
-         - Dates, times, routes, cities, etc. \n
-         - Dataframe dimension
-         - Added Delivery Success calculation
+st.caption('Only the first 50 rows are displayed')
+st.dataframe(df.head(50))
+with st.expander("Results"):
+    st.write(f"""
+        The information contained in the file:
+         - Dates, routes, cities, etc.
+         - Dataframe dimension: {df.shape} (Rows, Columns).
+         - Delivery Success calculation has been added.
     """)
 
-
-st.header('We are asked to consider how to reach the following goals: \n - Achieve 99.5% Delivery Success (DS) \n - Achieve 125 shipments per Route')
-
-#Preparación datos
-
-st.subheader('Currently')
-tab1, tab2 = st.tabs(['General info','General info2'])
-
-with tab1:
-   st.caption('Descriptive statistics information')
-   st.dataframe(df.describe(include='all' ).transpose())
-   st.write('The DataFrame dimensions are as follows (rows, columns):', df.shape)
-   with st.expander("Results"):
-    st.write("""
-        - Uniques: \n
-            -Date: 111  \n
-            -Routes: 13,365  \n
-            -Cities: 17 \n
-            -City_cluster:58 \n
-            -Carrier: 25
-        - Date range: from 06-04-222 to 25-07-2022 
+st.header('We are asked to consider how to reach the following goals')
+with st.expander("Goals"):
+    st.write(f"""
+        - Achieve 99.5% Delivery Success (DS)
+        - Achieve 125 Shipments per Route (SPR)
     """)
 
-with tab2:
-   st.caption('Descriptive statistics information')
-   st.dataframe(df.describe().transpose())
-   with st.expander("Results"):
-    st.write("""
-        - DS average is 98.19, 1.31% below target\n
-        - At this time the average Delivery Route (SPR) is 108.79, 16.21 less than the target
-    """)
+#General Information
+st.header('Currently')
+st.write('Indicators')
+col1, col2= st.columns(2)
 
+with col1:
+    st.metric(label="AVG Shipments per Route ", value = KPIS('route','deliveries').mean().round(1))
+with col2:
+     st.metric(label='AVG Delivery Success', value = KPI('deliveries','shipments').mean().round(1))
+st.caption('Descriptive statistics information')
+st.dataframe(df.describe().transpose())
+with st.expander("Results"):
+    st.write(f"""
+        - Delivery Success average is {KPI('deliveries','shipments').mean().round(1)}%, {99.5-(KPI('deliveries','shipments').mean()):.1f}% below target.
+        - Shipments per Routes average is {float(KPIS('route','deliveries').mean().round(1))}, {125-(float(float(KPIS('route','deliveries').mean().round(1)))):.1f} below target. 
+             """)
 
-#Preparacion Data y gràficas
-    #Filtro lateral
-columnas = ('city','city_cluster','carrier','driver_experience','cycle_flag')
-filtro = st.sidebar.radio('Choose column', columnas)
-st.sidebar.write('You are seeing: ', filtro)
-
-    #gráfica de distribución general
-x =df['DS%']
-hist_data = [x]
-group_labels = ['distplot'] # name of the dataset
-fig_displot_city = ff.create_distplot(hist_data, group_labels)
-
-    #gráfica de distribución general
-x_1 =df['shipments']
-hist_data_1 = [x_1]
-group_labels_1 = ['distplot'] # name of the dataset
-fig_displot_ship = ff.create_distplot(hist_data_1, group_labels_1)
-
-    #grafica de caja
-fig_box_edo = px.box(df, x = filtro , y = 'DS%')
-    #grafica de Barras Estado
-df_fig1 = df.groupby(by=filtro).mean()
-df_fig1 = df_fig1.sort_values(by='DS%', ascending = False)
-df_fig1 = df_fig1.reset_index()
-fig1 = px.bar(df_fig1, x=filtro, y='DS%')
-
-st.header('Análysis')
-st.subheader('General Analysis')
+st.header('Analysis')
+st.subheader('Normal distribution')
 tab1, tab2 = st.tabs(['Delivery Success','Shimpents'])
 
 with tab1:
-    st.caption('Distribution plot DS')
-    st.write(fig_displot_city)
-    with st.expander("Resuls"):
+    st.write(GeneralDistribution('DeliverySuccess','distplot'))
+    with st.expander("Results"):
         st.write("""
             - The distribution in general looks correct \n
             - 3 outliers can be seen with the following values; 0, 15.2 and 19.48
         """)
 
-
 with tab2:
-    st.caption('Shipments Distribution')
-    st.write(fig_displot_ship)
+    st.write(GeneralDistribution('shipments','distplot'))
     with st.expander("Results"):
         st.write("""
             - The distribution in general looks correct
         """)
 
 st.subheader('Delivery Success Analysis')
-st.write('You are seeing ', filtro)
-df_ciudad = df.groupby(by=[filtro]).mean()
+st.write('You are seeing ', filter)
 
 tab1, tab2, tab3, tab4= st.tabs(['General info',"Box Plot", "Bar Graph", 'Variable Correlation'])
 
 with tab1:
    st.caption('General info')
-   st.dataframe(df_ciudad)
+   st.dataframe(df.groupby(by = [filter]).mean())
    with st.expander("Results"):
     st.write("""
         - Only the city of Saltillo achieves the Delivery Success goal, Jalapa almost did it \n
@@ -156,7 +149,7 @@ with tab1:
 
 with tab2:
    st.caption('Plot Box')
-   st.write(fig_box_edo)
+   st.write(BoxPlot(df,'DeliverySuccess'))
    with st.expander("Results"):
     st.write("""
          - The Box and Whiskers graph helps to observe the distribution and other data, in this case by city, this makes it easier to identify probable outliers and to be able to find an answer much easier
@@ -170,11 +163,13 @@ with tab2:
 
 with tab3:
     st.caption('Bar Plot')
-    st.write(fig1)
+    st.write(BarGraph(df,'DeliverySuccess'))
     with st.expander("Results"):
      st.write("""
         - Only the city of Saltillo achieves the goal
     """)
+
+
 
 with tab4:
     st.caption('Variable correlation')
@@ -183,70 +178,50 @@ with tab4:
 
     with st.expander("Results"):
      st.write("""
-        No variable shows any direct correlation with DS, so it can be deduced that modifying these variables would not have a great impact on our objective.
+        No variable shows any direct correlation with Delivery Success, so it can be deduced that modifying these variables would not have a great impact on our objective.
     """)
-     
 
-
-st.write('Next step for DS analysis')
+st.subheader('Next step for DS analysis')
 
 with st.expander("Results"):
      st.write("""
+       - No variable shows any correlation with Delivery Success, so it is assumed that success is an external factor to this information.
        - According to the graph of boxes by city, the values of cities with SD less than 92 will be taken, where the largest number of atypicals are found, discarding Guadalajara and Merida \n
        - According to the chart of boxes by carrier, the values of carriers with values less than 88 will be taken, where the greatest number of outliers are found. \n
     """)
-
 
 #Datos importantes
 st.subheader('SPR Indicators')
 st.markdown('The SPR (Shipments per Route) is the total number of packages with which a route left and are found in the shipments column')
 
-spr = df[['route','deliveries']]
-spr_mean = spr.groupby('route').mean().sort_values(by = 'deliveries')
-kpi_spr_min = spr_mean.min()
-kpi_spr_max = spr_mean.max()
-kpi_spr_mean = spr_mean.mean()
-
 col1, col2, col3, col4 = st.columns(4)
 
-
 with col1:
-    st.metric(label="SPR MIN ", value = kpi_spr_min)
+    st.metric(label="SPR MIN ", value = KPIS('route','deliveries').min().round(1))
 with col2:
-     st.metric(label='SPR MAX', value = kpi_spr_max)
+     st.metric(label='SPR MAX', value = KPIS('route','deliveries').max().round(1))
 with col3:
-    st.metric(label='SPR AVG', value = kpi_spr_mean.round(2))
+    st.metric(label='SPR AVG', value = KPIS('route','deliveries').mean().round(2))
 with col4:
     st.metric(label="Total Rutas", value = df[['route']].count())
 
-
-    #grafica de caja
-fig_box_ship = px.box(df, x = filtro , y = 'shipments')
-    #grafica de Barras Estado
-df_fig1_shipments = df.groupby(by=filtro).mean()
-df_fig1_shipments= df_fig1_shipments.sort_values(by='shipments', ascending = False)
-df_fig1_shipments = df_fig1_shipments.reset_index()
-fig1_shipments = px.bar(df_fig1_shipments, x=filtro, y='shipments')
-
-
 st.subheader('SPR analysis')
-st.write('Your are seeing: ', filtro)
-df_ciudad = df.groupby(by=[filtro]).mean()
+st.write('Your are seeing: ', filter)
+df_ciudad = df.groupby(by=[filter]).mean()
 
-tab1, tab2, tab3, tab4= st.tabs(['DGeneral Info',"Box Plot", "Bar Plot", 'Variable Correlation'])
+tab1, tab2, tab3, tab4= st.tabs(['General Information',"Box Plot", "Bar Plot", 'Variable Correlation'])
 
 with tab1:
    st.caption('General Info')
    st.dataframe(df_ciudad)
 
-
 with tab2:
    st.caption('Box Plot')
-   st.write(fig_box_ship)
+   st.write(BoxPlot(df, 'shipments'))
 
 with tab3:
     st.caption('Bar Graph')
-    st.write(fig1_shipments)
+    st.write(BarGraph(df, 'shipments'))
 
 
 with tab4:
@@ -254,9 +229,11 @@ with tab4:
     st.write('The closer to 1 the correlation is direct, while the closer to -1 the correlation is inverse.')
     st.dataframe(df.corr(method='pearson'))
 
-
-
-
-
+with st.expander("Results"):
+     st.write("""
+       - No variable shows any correlation with Delivery Success, so it is assumed that success is an external factor to this information.
+       - Being a rookie if it impacts shipments by route.
+       - There are cities with a low Shipment AVG
+       """)
 
 
