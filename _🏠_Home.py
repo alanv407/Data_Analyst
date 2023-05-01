@@ -10,7 +10,7 @@ st.set_page_config(
 	)
 st.title('Home')
 
-st.header('Take Home Exercise.')
+st.header('Personal Portfolio.')
 st.subheader('About this Web App')
 st.markdown('For the development of this Web App the Python programming language was used, the following libraries were used; Pandas, Plotly and Streamlit')
 
@@ -19,7 +19,7 @@ st.markdown('On the left side are the different parts of this presentation; Home
 
 st.subheader('More info')
 st.caption('In some cases you will find a box like the one shown below, by clicking you will see more information')
-with st.expander("know a little more"):
+with st.expander("Know a little more"):
     st.write("""
         This is an example 
     """)
@@ -40,5 +40,5 @@ with tab2:
         This is another example in Tab 2
        """)
 	
-st.write('You can find the code for this page in: https://github.com/alanv407/Data_Analyst')
+st.subheader('You can find the code for this Web App in: https://github.com/alanv407/Data_Analyst')
 st.title('Lets get started!')
