@@ -35,10 +35,10 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs(["IQVIA", "Rappi", "MexWürst", "Wonder W
 with tab1:
    st.subheader("Data Analyst")
    st.caption('2021 - 2022')
+   st.markdown('- Analysis of the integrity of the Database')
    st.markdown('- Use of databases(SSIS, SQL, Access)')
    st.markdown('- ETL development (Extraction, Transformation and Load)')
    st.markdown('- Market analysis and commercial indicators, incentive analysis for sales force')
-   st.markdown('- Incentive analysis for sales force')
    st.markdown('- Analysis and design of reports for general management and clients (Power BI)')
    #st.markdown('')
 with tab2:
@@ -54,7 +54,7 @@ with tab3:
    st.caption('2018 - 2019')
    st.markdown('- Data Mining')
    st.markdown('- Data visualization')
-   st.markdown('- Creation and planning of digital marketing strategy (RRSS, web, SEO, SEM, Blogs, app). ')
+   st.markdown('- Creation and execution digital marketing strategies (RRSS, web, SEO, SEM, Blogs, app). ')
 
 with tab4:
    st.subheader("Internship 🇪🇸")
@@ -80,10 +80,3 @@ with tab7:
 	st.subheader('Big Data')
 	st.markdown('Fundación Carlos Slim / SEP')
 	st.caption('527 horas / 2021')
-
-
-
-
-
-
-
