@@ -54,7 +54,7 @@ with st.expander("Know a little more"):
 	#Save file in cache
 data = st.file_uploader('Drag and drop a file to continue')
 if not data:
-     st.warning('Drag and drop a file to generate the analysis')
+     st.warning('You can find the Excel file in: https://github.com/alanv407/Data_Analyst/blob/main/data.xlsx')
      st.stop()
 
 @st.cache(allow_output_mutation=True)
