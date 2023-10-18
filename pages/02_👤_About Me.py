@@ -30,8 +30,15 @@ with st.expander("Skills"):
 
 st.header('Previous jobs')
 
-tab1, tab2, tab3, tab4, tab5 = st.tabs(["IQVIA", "Rappi", "MexWürst", "Wonder World Media",'Antoeli'])
+tab6, tab1, tab2, tab3, tab4, tab5 = st.tabs(["Nissan", "IQVIA", "Rappi", "MexWürst", "Wonder World Media",'Antoeli'])
 
+with tab6:
+   st.subheader("Data Specialist")
+   st.caption('2023')
+   st.markdown('- Gather and process information from various internal and external sources of customer and marketing data.')
+   st.markdown('- Mantain access to the data, ingest, process, cleanse, format, store and distribute data.')
+   st.markdown('Validation of vendors ETL´s process')
+	
 with tab1:
    st.subheader("Data Analyst")
    st.caption('2021 - 2022')
