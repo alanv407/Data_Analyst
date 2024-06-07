@@ -137,7 +137,7 @@ st.divider()
 
 st.dataframe(df)
 
-st.header('Analysis')
+st.header('General Analysis')
 st.subheader('Normal distribution')
 tab1, tab2 = st.tabs(['Delivery Success','Shimpents'])
 
@@ -155,6 +155,7 @@ with tab2:
         st.write("""
             - The distribution in general looks correct
         """)
+st.divider()
 
 st.subheader('Delivery Success Analysis')
 st.write('You are seeing ', filter)
@@ -219,6 +220,7 @@ with st.expander("Results"):
        - According to the graph of boxes by city, the values of cities with SD less than 92 will be taken, where the largest number of atypicals are found, discarding Guadalajara and Merida \n
        - According to the chart of boxes by carrier, the values of carriers with values less than 88 will be taken, where the greatest number of outliers are found. \n
     """)
+st.divider()
 
 #Datos importantes
 st.subheader('SPR Indicators')
