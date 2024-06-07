@@ -31,81 +31,111 @@ def KPIS(groupby_KPIS, by_KPIS):
     return df_KPIS
 
 def KPI(ColA, ColB):
-    return ((df[ColA] / df[ColB]) * 100).round(1)
+    return ((df[ColA] / df[ColB]) * 100).mean().round(1)
 
 #Page Setup
 st.set_page_config(
 	page_title = 'Supply Chain',
-	page_icon = '🛒',
+	page_icon = '🔎',
 	)
 
-st.title('📈📊 Supply Chain Cases Analysis 📈📊')
+st.title('📊 Supply Chain Case Analysis 📈')
 
-st.subheader('The objectives of develop the project coding in Python are as follows:')
+st.divider()
 
-with st.expander("Know a little more"):
+st.subheader('Description')
+st.markdown('**This Python project aims to achieve the following objectives:**')
+
+with st.expander("Click"):
     st.write("""
-        - Being able to perform the exercise several times with updated data and in an automated way.
-        - In case of exceeding more than ±1,040,000 rows, we could not perform the exercise in Excel.
-        - Have a place where the information and visualizations can be manipulated, with automatic updates.
+        - **Enable iterative execution with dynamic data updates and automation:** This objective emphasizes the project's ability to handle repeated analysis with fresh data sets in an automated fashion.
+        - **Overcome data volume limitations:** This replaces the Excel limitation by highlighting the project's ability to handle large datasets (exceeding 1,040,000 rows).
+        - **Facilitate interactive data manipulation and visualization:** This rephrases the point about manipulating information and visualizations by emphasizing an interactive environment for analysis.
     """)
 
-#Data Input
-	#Save file in cache
-data = st.file_uploader('Drag and drop a file to continue')
-if not data:
-     st.warning('Drag and drop a file to generate the analysis')
-     st.stop()
+st.divider()
+with st.container(border=True):
+    st.markdown('This app requires a file to function properly. You can download the necessary file here from GitHub:')
 
-@st.cache(allow_output_mutation=True)
-def load_model(model_name):
-     df=pd.read_excel(data, dtype={'route': str})
-     return(df)
-df=load_model(data)
+    st.link_button("Go to the file", "https://github.com/alanv407/Data_Analyst/blob/main/data.xlsx")
+    #Data Input
+        #Save file in cache
+    data = st.file_uploader('Drag and drop a file to continue')
+    if not data:
+        st.info('Drag and drop a file to generate the analysis', icon="ℹ️")
+        st.stop()
+
+    @st.cache_data()
+    def load_model(model_name):
+        df=pd.read_excel(data, dtype={'route': str})
+        return(df)
+    df=load_model(data)
+
+    st.success('Data upload successful.', icon="✅")
+
+st.divider()
+
+########################################################
+######################################################## DATA PROCESSING
+
 
 df['DeliverySuccess'] = ((df['deliveries']/df['shipments'])*100).round(2)
 
-#Filter
+#FILTER
 columns = ('city','city_cluster','carrier','driver_experience','cycle_flag')
 filter = st.sidebar.radio('Choose column', columns)
 st.sidebar.write('You are seeing: ', filter)
 
+
 #DATA
-st.header('What we have here?')
-st.subheader('DataFrame')
-st.caption('Only the first 50 rows are displayed')
+st.header("Let's take a closer look at the file.")
+st.caption("For your initial review, here are the first 50 records from the file.")
 st.dataframe(df.head(50))
 with st.expander("Results"):
     st.write(f"""
         The information contained in the file:
          - Dates, routes, cities, etc.
-         - Dataframe dimension: {df.shape} (Rows, Columns).
+         - The file contains {len(df)} rows and {df.shape[1]} Columns.
          - Delivery Success calculation has been added.
     """)
 
-st.header('We are asked to consider how to reach the following goals')
+st.divider()
+
+st.subheader("Our task is to determine the best approach to achieve the following goals:")
 with st.expander("Goals"):
-    st.write(f"""
+    st.markdown(f"""
         - Achieve 99.5% Delivery Success (DS)
         - Achieve 125 Shipments per Route (SPR)
     """)
 
 #General Information
-st.header('Currently')
-st.write('Indicators')
+st.subheader('Metrics')
+
 col1, col2= st.columns(2)
 
 with col1:
-    st.metric(label="AVG Shipments per Route ", value = KPIS('route','deliveries').mean().round(1))
+    st.metric(label="AVG Shipments per Route ", 
+              value = KPIS('route','deliveries').mean().round(1),
+              delta= 125,
+              delta_color="inverse")
 with col2:
-     st.metric(label='AVG Delivery Success', value = KPI('deliveries','shipments').mean().round(1))
-st.caption('Descriptive statistics information')
-st.dataframe(df.describe().transpose())
+     st.metric(label='AVG Delivery Success', 
+               value = KPI('deliveries','shipments'),
+               delta= "99.5%",
+              delta_color="inverse")
+     
+st.markdown('Descriptive statistics information')
+
+
 with st.expander("Results"):
     st.write(f"""
         - Delivery Success average is {KPI('deliveries','shipments').mean().round(1)}%, {99.5-(KPI('deliveries','shipments').mean()):.1f}% below target.
         - Shipments per Routes average is {float(KPIS('route','deliveries').mean().round(1))}, {125-(float(float(KPIS('route','deliveries').mean().round(1)))):.1f} below target. 
              """)
+
+st.divider()
+
+st.dataframe(df)
 
 st.header('Analysis')
 st.subheader('Normal distribution')
