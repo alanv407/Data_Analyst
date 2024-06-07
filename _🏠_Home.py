@@ -1,6 +1,7 @@
 #Libreries
 import streamlit as st
 import pandas as pd
+import time
 
 #Configurarción Páginas
 st.set_page_config(
@@ -9,11 +10,7 @@ st.set_page_config(
 	)
 st.title('Home Page')
 
-st.header('Personal Portfolio.')
-
-with st.container(border=True):
-    st.subheader('About this Web App')
-    st.markdown('For the development of this Web App the Python programming language was used, the following libraries were used; Pandas, Plotly and Streamlit')
+st.header('Personal Portfolio 💼.')
 
 with st.container(border=True):
     st.subheader('Use of this Web App')
@@ -31,12 +28,19 @@ with st.container(border=True):
     st.caption('In other cases you will find Tabs, to see the information of each one you just have to click on each one')
     tab1, tab2 = st.tabs(['Tab 1','Tab 2'])
     with tab1:
-    st.caption('Tab 1')
-    st.write("""This is an example in Tab 1""")
+        st.caption('Tab 1')
+        st.write("""This is an example in Tab 1""")
     with tab2:
-    st.caption('Tab 2')
-    st.write("""This is another example in Tab 2""")
+        st.caption('Tab 2')
+        st.write("""This is another example in Tab 2""")
 	
 with st.container(border=True):    
-    st.subheader('You can find the code for this Web App in: https://github.com/alanv407/Data_Analyst')
-    st.title('Lets get started!')
+    st.markdown('**You can find the code for this Web App GitHub in:** https://github.com/alanv407/Data_Analyst')
+
+if st.button("Let's get started!"):
+    st.toast('Hip!')
+    time.sleep(.5)
+    st.toast('Hip!')
+    time.sleep(.5)
+    st.toast('Hooray!', icon='🎉')
+
