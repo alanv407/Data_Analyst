@@ -91,7 +91,7 @@ st.sidebar.write('You are seeing: ', filter)
 st.header("Let's take a closer look at the file.")
 st.caption("For your initial review, here are the first 50 records from the file.")
 st.dataframe(df.head(50))
-with st.expander("Results"):
+with st.expander("Findings"):
     st.write(f"""
         The information contained in the file:
          - Dates, routes, cities, etc.
@@ -104,30 +104,30 @@ st.divider()
 st.subheader("Our task is to determine the best approach to achieve the following goals:")
 with st.expander("Goals"):
     st.markdown(f"""
-        - Achieve 99.5% Delivery Success (DS)
-        - Achieve 125 Shipments per Route (SPR)
+        - Achieve **99.5%** Delivery Success (DS)
+        - Achieve **125** Shipments per Route (SPR)
     """)
 
 #General Information
-st.subheader('Metrics')
+st.subheader('Current Metrics')
 
 col1, col2= st.columns(2)
 
 with col1:
     st.metric(label="AVG Shipments per Route ", 
               value = KPIS('route','deliveries').mean().round(1),
-              delta= 125,
+              delta= f"{125-(float(float(KPIS('route','deliveries').mean().round(1)))):.1f} to goal",
               delta_color="inverse")
 with col2:
      st.metric(label='AVG Delivery Success', 
                value = KPI('deliveries','shipments'),
-               delta= "99.5%",
+               delta= f"{99.5-(KPI('deliveries','shipments').mean()):.1f}% to goal",
               delta_color="inverse")
-     
+          
 st.markdown('Descriptive statistics information')
 
 
-with st.expander("Results"):
+with st.expander("Findings"):
     st.write(f"""
         - Delivery Success average is {KPI('deliveries','shipments').mean().round(1)}%, {99.5-(KPI('deliveries','shipments').mean()):.1f}% below target.
         - Shipments per Routes average is {float(KPIS('route','deliveries').mean().round(1))}, {125-(float(float(KPIS('route','deliveries').mean().round(1)))):.1f} below target. 
@@ -143,7 +143,7 @@ tab1, tab2 = st.tabs(['Delivery Success','Shimpents'])
 
 with tab1:
     st.write(GeneralDistribution('DeliverySuccess','distplot'))
-    with st.expander("Results"):
+    with st.expander("Findings"):
         st.write("""
             - The distribution in general looks correct \n
             - 3 outliers can be seen with the following values; 0, 15.2 and 19.48
@@ -151,7 +151,7 @@ with tab1:
 
 with tab2:
     st.write(GeneralDistribution('shipments','distplot'))
-    with st.expander("Results"):
+    with st.expander("Findings"):
         st.write("""
             - The distribution in general looks correct
         """)
@@ -165,7 +165,7 @@ tab1, tab2, tab3, tab4= st.tabs(['General info',"Box Plot", "Bar Graph", 'Variab
 with tab1:
    st.caption('General info')
    st.dataframe(df.groupby(by = [filter]).mean())
-   with st.expander("Results"):
+   with st.expander("Findings"):
     st.write("""
         - Only the city of Saltillo achieves the Delivery Success goal, Jalapa almost did it \n
          - No city achieves an average in expected shipments \n
@@ -181,7 +181,7 @@ with tab1:
 with tab2:
    st.caption('Plot Box')
    st.write(BoxPlot(df,'DeliverySuccess'))
-   with st.expander("Results"):
+   with st.expander("Findings"):
     st.write("""
          - The Box and Whiskers graph helps to observe the distribution and other data, in this case by city, this makes it easier to identify probable outliers and to be able to find an answer much easier
          - Outliers are caused by 2 cities; Guadalajara (3) and Monterrey (0)\n
@@ -195,7 +195,7 @@ with tab2:
 with tab3:
     st.caption('Bar Plot')
     st.write(BarGraph(df,'DeliverySuccess'))
-    with st.expander("Results"):
+    with st.expander("Findings"):
      st.write("""
         - Only the city of Saltillo achieves the goal
     """)
@@ -207,14 +207,14 @@ with tab4:
     st.write('The closer to 1 the correlation is direct, while the closer to -1 the correlation is inverse.')
     st.dataframe(df.corr(method='pearson'))
 
-    with st.expander("Results"):
+    with st.expander("Findings"):
      st.write("""
         No variable shows any direct correlation with Delivery Success, so it can be deduced that modifying these variables would not have a great impact on our objective.
     """)
 
 st.subheader('Next step for DS analysis')
 
-with st.expander("Results"):
+with st.expander("Findings"):
      st.write("""
        - No variable shows any correlation with Delivery Success, so it is assumed that success is an external factor to this information.
        - According to the graph of boxes by city, the values of cities with SD less than 92 will be taken, where the largest number of atypicals are found, discarding Guadalajara and Merida \n
@@ -261,7 +261,7 @@ with tab4:
     st.write('The closer to 1 the correlation is direct, while the closer to -1 the correlation is inverse.')
     st.dataframe(df.corr(method='pearson'))
 
-with st.expander("Results"):
+with st.expander("Findings"):
      st.write("""
        - No variable shows any correlation with Delivery Success, so it is assumed that success is an external factor to this information.
        - Being a rookie if it impacts shipments by route.
