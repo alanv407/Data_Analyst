@@ -34,7 +34,11 @@ def KPI(ColA, ColB):
     return ((df[ColA] / df[ColB]) * 100).mean().round(1)
 
 def color_delivery_success(val):
-  color = 'green' if val >= 98 else 'red'
+  color = '#5DE23C' if val >= 99.5 else 'red'
+  return f'background-color: {color}'
+
+def color_shipments_ruoute(val):
+  color = 'green' if val >= 125 else 'red'
   return f'background-color: {color}'
 
 #Page Setup
