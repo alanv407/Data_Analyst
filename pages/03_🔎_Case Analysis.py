@@ -284,6 +284,6 @@ with st.expander("Findings"):
 df_to_display = df[[filter, 'DeliverySuccess']]
 
 # Apply styling (using original DataFrame)
-df_styled = df_to_display.style.applymap(color_delivery_success, subset=['Delivery Success'])
+df_styled = df_to_display.style.applymap(color_delivery_success, subset=['DeliverySuccess'])
 
 st.dataframe(df_styled)
