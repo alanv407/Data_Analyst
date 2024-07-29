@@ -279,12 +279,11 @@ with st.expander("Findings"):
        - There are cities with a low Shipment AVG
        """)
 
-df_styled = df.groupby(by=[filter]).mean()
 
 # Select only the filtered column and DeliverySuccess
 df_to_display = df_styled[[filter, 'DeliverySuccess']]
 
 # Apply styling (using original DataFrame)
-df_styled = df_to_display.style.applymap(color_delivery_success, subset=['DeliverySuccess'])
+df_styled = df_to_display..groupby(by=[filter]).mean()style.applymap(color_delivery_success, subset=['DeliverySuccess'])
 
 st.dataframe(df_styled)
