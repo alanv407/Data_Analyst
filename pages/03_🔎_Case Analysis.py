@@ -207,11 +207,11 @@ with tab4:
     with st.expander("Findings"):
      st.write("""
         No variable shows any direct correlation with Delivery Success, so it can be deduced that modifying these variables would not have a great impact on our objective.
-    """)
+    	""")
 
 st.subheader('Next step for DS analysis')
 
-   with st.expander("Findings"):
+with st.expander("Findings"):
     st.write("""
         - Only the city of Saltillo achieves the Delivery Success goal, Jalapa almost did it
         - No city achieves an average in expected shipments
@@ -224,7 +224,7 @@ st.subheader('Next step for DS analysis')
 	- No variable shows any correlation with Delivery Success, so it is assumed that success is an external factor to this information.
        	- According to the graph of boxes by city, the values of cities with SD less than 92 will be taken, where the largest number of atypicals are found, discarding Guadalajara and Merida \n
        	- According to the chart of boxes by carrier, the values of carriers with values less than 88 will be taken, where the greatest number of outliers are found. \n
-    """)
+    	""")
 
       
 st.divider()
