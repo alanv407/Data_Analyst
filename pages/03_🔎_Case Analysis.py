@@ -168,14 +168,16 @@ st.write(f'You are seeing: **{filter}**')
 
 tab1, tab2, tab3, tab4= st.tabs(['General info',"Box Plot", "Bar Graph", 'Variable Correlation'])
 
-df_styled = df.groupby(by=[filter]).mean().style.applymap(color_delivery_success, subset=['DeliverySuccess'])
+df_styled = df.groupby(by=[filter])['DeliverySuccess'].mean().reset_index().style.applymap(color_delivery_success, subset=['Delivery Success'])
 
-# Select only the filtered column and DeliverySuccess
-#df_to_display = df_styled[[filter, 'DeliverySuccess']]
+df_to_display = df_styled.data
+
+df_to_display = df_to_display[[filter, 'DeliverySuccess']]
 
 with tab1:
    st.caption('General info')
-   st.dataframe(df_styled)
+   st.dataframe(df_to_display.sort_values(by = 'DeliverySuccess', ascending=False).style.applymap(color_delivery_success, subset=['DeliverySuccess']))
+
    with st.expander("Findings"):
     st.write("""
         - Only the city of Saltillo achieves the Delivery Success goal, Jalapa almost did it \n
@@ -278,19 +280,5 @@ with st.expander("Findings"):
        - Being a rookie if it impacts shipments by route.
        - There are cities with a low Shipment AVG
        """)
-
-
-# ... your code for filtering and grouping ...
-
-# Apply styling
-df_styled = df.groupby(by=[filter])['DeliverySuccess'].mean().reset_index().style.applymap(color_delivery_success, subset=['Delivery Success'])
-
-# Get the underlying DataFrame from the Styler object
-df_to_display = df_styled.data
-
-# Select only the filtered column and DeliverySuccess
-df_to_display = df_to_display[[filter, 'DeliverySuccess']]
-
-st.dataframe(df_to_display.sort_values(by = 'DeliverySuccess', ascending=False).style.applymap(color_delivery_success, subset=['DeliverySuccess']))
 
 
