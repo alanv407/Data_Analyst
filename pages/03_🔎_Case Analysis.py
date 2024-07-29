@@ -214,15 +214,15 @@ st.subheader('Next step for DS analysis')
 with st.expander("Findings"):
     st.write("""
         - Only the city of Saltillo achieves the Delivery Success goal, Jalapa almost did it.  \n
-        - No city achieves an average in expected shipments.  \n
-             - The closest is CDMX 6 shipments below the target.
-             - The city with the lowest average shipments is Puebla with 61 shipments on average.
         - The only carrier that achieves the objective is Envios Express, SSJ Serv Logistica, it is very close. \n
         - It is proposed to review and validate the Cycle_flag data since outside of SP all have poor performance. \n
 	- No variable shows any correlation with Delivery Success, so it is assumed that success is an external factor to this information. \n
        	- According to the graph of boxes by city, the values of cities with SD less than 92 will be taken, where the largest number of atypicals are found, discarding Guadalajara and Merida \n
        	- According to the chart of boxes by carrier, the values of carriers with values less than 88 will be taken, where the greatest number of outliers are found. \n
 	- Experience is not a relevant variable.
+ 	- No city reaches the average in expected shipments.  \n
+             - The closest is CDMX, 6 shipments below the target.
+             - The city with the lowest average shipments is Puebla with 61 shipments on average.
     	""")
 
       
