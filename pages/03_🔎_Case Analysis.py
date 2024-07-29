@@ -139,10 +139,6 @@ with st.expander("Findings"):
 
 st.divider()
 
-st.dataframe(df)
-
-st.divider()
-
 st.header('General Analysis')
 st.subheader('Normal distribution')
 tab1, tab2 = st.tabs(['Delivery Success','Shimpents'])
@@ -169,7 +165,7 @@ st.write('You are seeing ', filter)
 tab1, tab2, tab3, tab4= st.tabs(['General info',"Box Plot", "Bar Graph", 'Variable Correlation'])
 
 # Assuming df is your DataFrame
-df_styled = df.groupby(by=[filter]).mean().style.applymap(color_delivery_success, subset=['Delivery Success'])
+df_styled = df.groupby(by=[filter]).mean().style.applymap(color_delivery_success, subset=['DeliverySuccess'])
 
 st.dataframe(df_styled)
 
