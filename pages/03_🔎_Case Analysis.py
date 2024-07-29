@@ -191,42 +191,13 @@ with tab1:
    st.caption('General info')
    st.dataframe(df_to_display.sort_values(by = 'DeliverySuccess', ascending=False).style.applymap(color_delivery_success, subset=['DeliverySuccess']))
 
-   with st.expander("Findings"):
-    st.write("""
-        - Only the city of Saltillo achieves the Delivery Success goal, Jalapa almost did it \n
-         - No city achieves an average in expected shipments \n
-             - The closest is CDMX 6 shipments below the target
-             - The city with the lowest average shipments is Puebla with 61 shipments on average
-         - The only carrier that achieves the objective is Envios Express, SSJ Serv Logistica, it is very close
-         - If we analyze by cycle_flag, the SP group achieves the DS objective but very far from SPR
-         - The cycle_flag that is closest to SOR is C1, the one that is furthest away is SD
-         - If we analyze by experience, the Experienced category has the best index in DS and SPR
-
-    """)
-
 with tab2:
    st.caption('Plot Box')
    st.write(BoxPlot(df,'DeliverySuccess'))
-   with st.expander("Findings"):
-    st.write("""
-         - The Box and Whiskers graph helps to observe the distribution and other data, in this case by city, this makes it easier to identify probable outliers and to be able to find an answer much easier
-         - Outliers are caused by 2 cities; Guadalajara (3) and Monterrey (0)\n
-         - Some cities like CDMX and Queretaro also show outliers, but not as many as Guadalajara and Monterrey
-         - In analysis by carrier we can find that the outliers found in the general graph are caused by the Interexpress
-         - In general the distribution by carrier looks good
-         - If we analyze by driver_experience we see that most of the outliers are caused by the Rookie category
-         - Analyzing by cycle_flag, category C1 is the one with the greatest number of outliers, but Not planned has the largest body of the box
-    """)
 
 with tab3:
     st.caption('Bar Plot')
     st.write(BarGraph(df,'DeliverySuccess'))
-    with st.expander("Findings"):
-     st.write("""
-        - Only the city of Saltillo achieves the goal
-    """)
-
-
 
 with tab4:
     st.caption('Variable correlation')
@@ -240,15 +211,24 @@ with tab4:
 
 st.subheader('Next step for DS analysis')
 
-with st.expander("Findings"):
-     st.write("""
-       - No variable shows any correlation with Delivery Success, so it is assumed that success is an external factor to this information.
-       - According to the graph of boxes by city, the values of cities with SD less than 92 will be taken, where the largest number of atypicals are found, discarding Guadalajara and Merida \n
-       - According to the chart of boxes by carrier, the values of carriers with values less than 88 will be taken, where the greatest number of outliers are found. \n
+   with st.expander("Findings"):
+    st.write("""
+        - Only the city of Saltillo achieves the Delivery Success goal, Jalapa almost did it
+        - No city achieves an average in expected shipments
+             - The closest is CDMX 6 shipments below the target
+             - The city with the lowest average shipments is Puebla with 61 shipments on average
+        - The only carrier that achieves the objective is Envios Express, SSJ Serv Logistica, it is very close
+        - If we analyze by cycle_flag, the SP group achieves the DS objective but very far from SPR
+        - The cycle_flag that is closest to SOR is C1, the one that is furthest away is SD
+        - If we analyze by experience, the Experienced category has the best index in DS and SPR
+	- No variable shows any correlation with Delivery Success, so it is assumed that success is an external factor to this information.
+       	- According to the graph of boxes by city, the values of cities with SD less than 92 will be taken, where the largest number of atypicals are found, discarding Guadalajara and Merida \n
+       	- According to the chart of boxes by carrier, the values of carriers with values less than 88 will be taken, where the greatest number of outliers are found. \n
     """)
+
+      
 st.divider()
 
-#Datos importantes
 st.subheader('SPR Indicators')
 st.markdown('The SPR (Shipments per Route) is the total number of packages with which a route left and are found in the "shipments" column')
 
@@ -292,8 +272,11 @@ with tab4:
 
 with st.expander("Findings"):
      st.write("""
-       - No variable shows any correlation with Delivery Success, so it is assumed that success is an external factor to this information.
+       - No variable shows any correlation with SPR, so it is assumed that success is an external factor to this information.
+       - No city or city_cluster have the expected performance, the city with the worst performance is Puebla.
+       - Only one carrier have the expected avg performance.
        - Being a novice does affect route shipments.
+       - It is proposed to review and validate the Cycle_flag data since outside of C1 all have poor performance.
        - There are cities with a low Shipment AVG
        """)
 
