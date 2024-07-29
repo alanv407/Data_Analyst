@@ -280,10 +280,13 @@ with st.expander("Findings"):
        """)
 
 
-# Select only the filtered column and DeliverySuccess
-df_to_display = df_styled[[filter, 'DeliverySuccess']]
-
 # Apply styling (using original DataFrame)
-df_styled = df_to_display.groupby(by=[filter]).mean()
+df_styled = df.groupby(by=[filter]).mean().style.applymap(color_delivery_success, subset=['Delivery Success'])
 
-st.dataframe(df_styled)
+# Convert to DataFrame (less efficient for large DataFrames)
+df_to_display = df_styled.to_frame()
+
+# Select only the filtered column and DeliverySuccess
+df_to_display = df_to_display[[filter, 'DeliverySuccess']]
+
+st.dataframe(df_to_display)
