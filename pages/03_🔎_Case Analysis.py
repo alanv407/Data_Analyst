@@ -168,8 +168,8 @@ st.write(f'You are seeing: **{filter}**')
 
 tab1, tab2, tab3, tab4= st.tabs(['General info',"Box Plot", "Bar Graph", 'Variable Correlation'])
 
-df_styled = df.groupby(by=[filter]).mean().style.applymap(color_delivery_success, subset=['Delivery Success'])
-
+st.dataframe(df_styled[filter,'DeliverySuccess'].sort_values(by='DeliverySuccess')
+	     
 # Select only the filtered column and DeliverySuccess
 #df_to_display = df_styled[[filter, 'DeliverySuccess']]
 
