@@ -252,13 +252,16 @@ with col4:
 
 st.subheader('SPR analysis')
 st.write(f'Your are seeing: **{filter}**')
-df_ciudad = df.groupby(by=[filter]).mean().style.applymap(color_shipments_route, subset=['shipments'])
+
+df_styled_shipments = df.groupby(by=[filter])['shipments'].mean().reset_index().style.applymap(color_shipments_route, subset=['shipments'])
+df_to_display_shipments = df_styled_shipments.data
+df_to_display_shipments = df_to_display_shipments[[filter, 'shipments']]
 
 tab1, tab2, tab3, tab4= st.tabs(['General Information',"Box Plot", "Bar Plot", 'Variable Correlation'])
 
 with tab1:
    st.caption('General Info')
-   st.dataframe(df_ciudad)
+   st.dataframe(df_to_display_shipments.sort_values(by = 'shipments', ascending=False).style.applymap(color_delivery_success, subset=['shipments']))
 
 with tab2:
    st.caption('Box Plot')
@@ -281,9 +284,5 @@ with st.expander("Findings"):
        - There are cities with a low Shipment AVG
        """)
 
-df_styled_shipments = df.groupby(by=[filter])['shipments'].mean().reset_index().style.applymap(color_shipments_route, subset=['shipments'])
 
-df_to_display_shipments = df_styled_shipments.data
 
-df_to_display_shipments = df_to_display_shipments[[filter, 'shipments']]
-st.dataframe(df_to_display_shipments.sort_values(by = 'shipments', ascending=False).style.applymap(color_delivery_success, subset=['shipments']))
