@@ -281,4 +281,9 @@ with st.expander("Findings"):
        - There are cities with a low Shipment AVG
        """)
 
+df_styled_shipments = df.groupby(by=[filter])['shipments'].mean().reset_index().style.applymap(color_shipments_route, subset=['shipments'])
 
+df_to_display_shipments = df_styled_shipments.data
+
+df_to_display_shipments = df_to_display_shipments[[filter, 'DeliverySuccess']]
+st.dataframe(df_to_display_shipments.sort_values(by = 'DeliverySuccess', ascending=False).style.applymap(color_delivery_success, subset=['DeliverySuccess']))
