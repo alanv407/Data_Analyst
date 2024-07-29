@@ -280,13 +280,17 @@ with st.expander("Findings"):
        """)
 
 
- # ... your code for filtering and grouping ...
+# ... your code for filtering and grouping ...
 
 # Apply styling
 df_styled = df.groupby(by=[filter])['DeliverySuccess'].mean().reset_index().style.applymap(color_delivery_success, subset=['Delivery Success'])
 
-# No conversion needed, select directly from styled DataFrame
-df_to_display = df_styled[[filter, 'DeliverySuccess']]
+# Get the underlying DataFrame from the Styler object
+df_to_display = df_styled.data
+
+# Select only the filtered column and DeliverySuccess
+df_to_display = df_to_display[[filter, 'DeliverySuccess']]
 
 st.dataframe(df_to_display)
+
 
