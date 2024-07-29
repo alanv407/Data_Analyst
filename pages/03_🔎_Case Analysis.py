@@ -171,7 +171,7 @@ tab1, tab2, tab3, tab4= st.tabs(['General info',"Box Plot", "Bar Graph", 'Variab
 # Assuming df is your DataFrame
 df_styled = df.groupby(by=[filter]).mean().style.applymap(color_delivery_success, subset=['DeliverySuccess']).applymap(color_shipments_route, subset=['shipments'])
 
-#st.dataframe(df_styled)
+st.dataframe(df_styled)
 
 with tab1:
    st.caption('General info')
