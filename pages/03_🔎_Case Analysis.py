@@ -173,7 +173,7 @@ df_styled = df.groupby(by=[filter]).mean().style.applymap(color_delivery_success
 
 with tab1:
    st.caption('General info')
-   st.dataframe(df_styled[filter,'DeliverySuccess'].sort_values(by='DeliverySuccess'))
+   st.dataframe(df_styled.sort_values(by='DeliverySuccess'))
    with st.expander("Findings"):
     st.write("""
         - Only the city of Saltillo achieves the Delivery Success goal, Jalapa almost did it \n
