@@ -92,7 +92,7 @@ df['DeliverySuccess'] = ((df['deliveries']/df['shipments'])*100).round(2)
 #FILTER
 columns = ('city','city_cluster','carrier','driver_experience','cycle_flag')
 filter = st.sidebar.radio('Choose column', columns)
-st.sidebar.write('You are seeing: ', filter)
+st.sidebar.write(f'You are seeing: **{filter}**')
 
 
 #DATA
@@ -169,11 +169,11 @@ st.write(f'You are seeing: **{filter}**')
 tab1, tab2, tab3, tab4= st.tabs(['General info',"Box Plot", "Bar Graph", 'Variable Correlation'])
 
 # Assuming df is your DataFrame
-df_styled = df.groupby(by=[filter]).mean().style.applymap(color_delivery_success, subset=['DeliverySuccess']).applymap(color_shipments_route, subset=['shipments'])
+df_styled = df.groupby(by=[filter]).mean().style.applymap(color_delivery_success, subset=['DeliverySuccess'])
 
 with tab1:
    st.caption('General info')
-   st.dataframe(df_styled)
+   st.dataframe(df_styled[filter,'DeliverySuccess'].sort:values(by='DeliverySuccess')
    with st.expander("Findings"):
     st.write("""
         - Only the city of Saltillo achieves the Delivery Success goal, Jalapa almost did it \n
@@ -233,7 +233,7 @@ st.divider()
 
 #Datos importantes
 st.subheader('SPR Indicators')
-st.markdown('The SPR (Shipments per Route) is the total number of packages with which a route left and are found in the shipments column')
+st.markdown('The SPR (Shipments per Route) is the total number of packages with which a route left and are found in the "shipments" column')
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -244,11 +244,11 @@ with col2:
 with col3:
     st.metric(label='SPR AVG', value = KPIS('route','deliveries').mean().round(2))
 with col4:
-    st.metric(label="Total Rutas", value = df[['route']].count())
+    st.metric(label="Total", value = df[['route']].count())
 
 st.subheader('SPR analysis')
-st.write('Your are seeing: ', filter)
-df_ciudad = df.groupby(by=[filter]).mean()
+st.write(f'Your are seeing: **{filter}**')
+df_ciudad = df.groupby(by=[filter]).mean().style.applymap(color_shipments_route, subset=['shipments'])
 
 tab1, tab2, tab3, tab4= st.tabs(['General Information',"Box Plot", "Bar Plot", 'Variable Correlation'])
 
