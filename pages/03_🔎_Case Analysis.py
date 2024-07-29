@@ -284,6 +284,6 @@ with st.expander("Findings"):
 df_to_display = df_styled[[filter, 'DeliverySuccess']]
 
 # Apply styling (using original DataFrame)
-df_styled = df_to_display.groupby(by=[filter]).mean().style.applymap(color_delivery_success, subset=['DeliverySuccess'])
+df_styled = df_to_display.groupby(by=[filter]).mean()
 
 st.dataframe(df_styled)
