@@ -171,7 +171,7 @@ tab1, tab2, tab3, tab4= st.tabs(['General info',"Box Plot", "Bar Graph", 'Variab
 df_styled = df.groupby(by=[filter]).mean().style.applymap(color_delivery_success, subset=['DeliverySuccess'])
 
 # Select only the filtered column and DeliverySuccess
-df_to_display = df_styled[[filter, 'DeliverySuccess']]
+#df_to_display = df_styled[[filter, 'DeliverySuccess']]
 
 with tab1:
    st.caption('General info')
@@ -278,3 +278,12 @@ with st.expander("Findings"):
        - Being a rookie if it impacts shipments by route.
        - There are cities with a low Shipment AVG
        """)
+
+
+# Select only the filtered column and DeliverySuccess
+df_to_display = df[[filter, 'DeliverySuccess']]
+
+# Apply styling (using original DataFrame)
+df_styled = df_to_display.style.applymap(color_delivery_success, subset=['Delivery Success'])
+
+st.dataframe(df_styled)
