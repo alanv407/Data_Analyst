@@ -285,5 +285,5 @@ df_styled_shipments = df.groupby(by=[filter])['shipments'].mean().reset_index().
 
 df_to_display_shipments = df_styled_shipments.data
 
-df_to_display_shipments = df_to_display_shipments[[filter, 'DeliverySuccess']]
-st.dataframe(df_to_display_shipments.sort_values(by = 'DeliverySuccess', ascending=False).style.applymap(color_delivery_success, subset=['DeliverySuccess']))
+df_to_display_shipments = df_to_display_shipments[[filter, 'shipments']]
+st.dataframe(df_to_display_shipments.sort_values(by = 'shipments', ascending=False).style.applymap(color_delivery_success, subset=['shipments']))
