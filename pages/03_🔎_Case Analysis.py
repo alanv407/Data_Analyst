@@ -291,6 +291,6 @@ df_to_display = df_styled.data
 # Select only the filtered column and DeliverySuccess
 df_to_display = df_to_display[[filter, 'DeliverySuccess']]
 
-st.dataframe(df_to_display.sort_values(by = 'DeliverySuccess').style.applymap(color_delivery_success, subset=['DeliverySuccess']))
+st.dataframe(df_to_display.sort_values(by = 'DeliverySuccess', ascending=False).style.applymap(color_delivery_success, subset=['DeliverySuccess']))
 
 
