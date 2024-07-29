@@ -151,7 +151,7 @@ with tab1:
     st.write(GeneralDistribution('DeliverySuccess','distplot'))
     with st.expander("Findings"):
         st.write("""
-            - The distribution in general looks correct \n
+            - A correct normal distribution can be observed. \n
             - 3 outliers can be seen with the following values; 0, 15.2 and 19.48
         """)
 
@@ -169,13 +169,13 @@ st.subheader('Delivery Success Analysis')
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
-    st.metric(label="SPR MIN ", value = KPIS('deliveries','shipments').min().round(1))
+    st.metric(label="DS MIN ", value = KPIS('deliveries','shipments').min().round(1))
 with col2:
-     st.metric(label='SPR MAX', value = KPIS('deliveries','shipments').max().round(1))
+     st.metric(label='DS MAX', value = KPIS('deliveries','shipments').max().round(1))
 with col3:
-    st.metric(label='SPR AVG', value = KPI('deliveries','shipments').mean().round(2))
+    st.metric(label='DS AVG', value = KPI('deliveries','shipments').mean().round(2))
 with col4:
-    st.metric(label="Total", value = df[['route']].count())
+    st.metric(label="Total Records", value = df[['route']].count())
 
 st.write(f'You are seeing: **{filter}**')
 
@@ -261,7 +261,7 @@ with col2:
 with col3:
     st.metric(label='SPR AVG', value = KPIS('route','deliveries').mean().round(2))
 with col4:
-    st.metric(label="Total", value = df[['route']].count())
+    st.metric(label="Total Records", value = df[['route']].count())
 
 st.subheader('SPR analysis')
 st.write(f'Your are seeing: **{filter}**')
@@ -274,7 +274,7 @@ tab1, tab2, tab3, tab4= st.tabs(['General Information',"Box Plot", "Bar Plot", '
 
 with tab1:
    st.caption('General Info')
-   st.dataframe(df_to_display_shipments.sort_values(by = 'shipments', ascending=False).style.applymap(color_delivery_success, subset=['shipments']))
+   st.dataframe(df_to_display_shipments.sort_values(by = 'shipments', ascending=False).style.applymap(color_shipments_route, subset=['shipments']))
 
 with tab2:
    st.caption('Box Plot')
@@ -293,7 +293,7 @@ with tab4:
 with st.expander("Findings"):
      st.write("""
        - No variable shows any correlation with Delivery Success, so it is assumed that success is an external factor to this information.
-       - Being a rookie if it impacts shipments by route.
+       - Being a novice does affect route shipments.
        - There are cities with a low Shipment AVG
        """)
 
