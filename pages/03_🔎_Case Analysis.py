@@ -220,9 +220,7 @@ with st.expander("Findings"):
        	- According to the graph of boxes by city, the values of cities with SD less than 92 will be taken, where the largest number of atypicals are found, discarding Guadalajara and Merida.
 	- According to the chart of boxes by carrier, the values of carriers with values less than 88 will be taken, where the greatest number of outliers are found.
 	- Experience is not a relevant variable.
- 	- No city reaches the average in expected shipments.
-             - The closest is CDMX, 6 shipments below the target.
-             - The city with the lowest average shipments is Puebla with 61 shipments on average.
+ 	- No city reaches the average in expected shipments. The closest is CDMX, 6 shipments below the target. The city with the lowest average shipments is Puebla with 61 shipments on average.
     	""")
 
       
