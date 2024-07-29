@@ -173,9 +173,6 @@ df_styled = df.groupby(by=[filter]).mean().style.applymap(color_delivery_success
 # Select only the filtered column and DeliverySuccess
 df_to_display = df_styled[[filter, 'DeliverySuccess']]
 
-# Apply styling to DeliverySuccess column
-df_styled = df_to_display.style.applymap(color_delivery_success, subset=['Delivery Success'])
-
 with tab1:
    st.caption('General info')
    st.dataframe(df_styled)
