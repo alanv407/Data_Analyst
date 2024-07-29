@@ -164,6 +164,19 @@ with tab2:
 st.divider()
 
 st.subheader('Delivery Success Analysis')
+
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.metric(label="SPR MIN ", value = KPIS('deliveries','shipments').min().round(1))
+with col2:
+     st.metric(label='SPR MAX', value = KPIS('deliveries','shipments').max().round(1))
+with col3:
+    st.metric(label='SPR AVG', value = KPI('deliveries','shipments').mean().round(2))
+with col4:
+    st.metric(label="Total", value = df[['route']].count())
+
 st.write(f'You are seeing: **{filter}**')
 
 tab1, tab2, tab3, tab4= st.tabs(['General info',"Box Plot", "Bar Graph", 'Variable Correlation'])
