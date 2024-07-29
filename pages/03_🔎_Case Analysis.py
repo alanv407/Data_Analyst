@@ -274,7 +274,7 @@ tab1, tab2, tab3, tab4= st.tabs(['General Information',"Box Plot", "Bar Plot", '
 
 with tab1:
    st.caption('General Info')
-   st.dataframe(df_to_display_shipments.sort_values(by = 'shipments', ascending=False).style.applymap(color_shipments_route, subset=['shipments']))
+   st.dataframe(df_to_display_shipments.sort_values(by = 'shipments', ascending=False).round(2).style.applymap(color_shipments_route, subset=['shipments']))
 
 with tab2:
    st.caption('Box Plot')
