@@ -34,11 +34,11 @@ def KPI(ColA, ColB):
     return ((df[ColA] / df[ColB]) * 100).mean().round(1)
 
 def color_delivery_success(val):
-  color = '#5DE23C' if val >= 99.5 else 'red'
+  color = '#5DE23C' if val >= 99.5 else '#e94f58'
   return f'background-color: {color}'
 
-def color_shipments_ruoute(val):
-  color = 'green' if val >= 125 else 'red'
+def color_shipments_route(val):
+  color = '#5DE23C' if val >= 125 else '#e94f58'
   return f'background-color: {color}'
 
 #Page Setup
@@ -169,7 +169,7 @@ st.write('You are seeing ', filter)
 tab1, tab2, tab3, tab4= st.tabs(['General info',"Box Plot", "Bar Graph", 'Variable Correlation'])
 
 # Assuming df is your DataFrame
-df_styled = df.groupby(by=[filter]).mean().style.applymap(color_delivery_success, subset=['DeliverySuccess'])
+df_styled = df.groupby(by=[filter]).mean().style.applymap(color_delivery_success, subset=['DeliverySuccess']).applymap(color_shipments_route, subset=['shipments'])
 
 st.dataframe(df_styled)
 
