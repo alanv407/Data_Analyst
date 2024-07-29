@@ -169,11 +169,21 @@ st.write(f'You are seeing: **{filter}**')
 tab1, tab2, tab3, tab4= st.tabs(['General info',"Box Plot", "Bar Graph", 'Variable Correlation'])
 
 # Assuming df is your DataFrame
-df_styled = df.groupby(by=[filter]).mean().style.applymap(color_delivery_success, subset=['DeliverySuccess'])
+# Filter the DataFrame based on user selection
+filtered_df = df[filter]
+
+# Group by the filtered column and calculate mean
+df_grouped = filtered_df.groupby(by=[filter])['DeliverySuccess'].mean().reset_index()
+
+# Select only the filtered column and DeliverySuccess
+df_to_display = df_grouped[[filter, 'DeliverySuccess']]
+
+# Apply styling to DeliverySuccess column
+df_styled = df_to_display.style.applymap(color_delivery_success, subset=['Delivery Success'])
 
 with tab1:
    st.caption('General info')
-   st.dataframe(df_styled[[filter, 'DeliverySuccess']])
+   st.dataframe(df_styled)
    with st.expander("Findings"):
     st.write("""
         - Only the city of Saltillo achieves the Delivery Success goal, Jalapa almost did it \n
