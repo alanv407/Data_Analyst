@@ -33,6 +33,10 @@ def KPIS(groupby_KPIS, by_KPIS):
 def KPI(ColA, ColB):
     return ((df[ColA] / df[ColB]) * 100).mean().round(1)
 
+def color_delivery_success(val):
+  color = 'green' if val >= 98 else 'red'
+  return f'background-color: {color}'
+
 #Page Setup
 st.set_page_config(
 	page_title = 'Supply Chain',
@@ -137,6 +141,8 @@ st.divider()
 
 st.dataframe(df)
 
+st.divider()
+
 st.header('General Analysis')
 st.subheader('Normal distribution')
 tab1, tab2 = st.tabs(['Delivery Success','Shimpents'])
@@ -161,6 +167,11 @@ st.subheader('Delivery Success Analysis')
 st.write('You are seeing ', filter)
 
 tab1, tab2, tab3, tab4= st.tabs(['General info',"Box Plot", "Bar Graph", 'Variable Correlation'])
+
+# Assuming df is your DataFrame
+df_styled = df.groupby(by=[filter]).mean().style.applymap(color_delivery_success, subset=['Delivery Success'])
+
+st.dataframe(df_styled)
 
 with tab1:
    st.caption('General info')
