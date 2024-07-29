@@ -168,7 +168,7 @@ st.write(f'You are seeing: **{filter}**')
 
 tab1, tab2, tab3, tab4= st.tabs(['General info',"Box Plot", "Bar Graph", 'Variable Correlation'])
 
-st.dataframe(df_styled[filter,'DeliverySuccess'].sort_values(by='DeliverySuccess')
+st.dataframe(df_styled[filter,'DeliverySuccess'].sort_values(by='DeliverySuccess'))
 	     
 # Select only the filtered column and DeliverySuccess
 #df_to_display = df_styled[[filter, 'DeliverySuccess']]
