@@ -26,16 +26,16 @@ with st.expander("Summary"):
 
 st.subheader('Skills')
 
-with st.expander("Skills"):
+with st.expander("Skills And Technologies"):
     st.markdown("""
-                I have experience handling and interpreting data.
+                I have experience in **data management, interpretation and visualization**.
                 
                 The tools that I use most are:
                   
-                  - SQL (Snowflake ❄️, MS Server, Redash)
-                  - 🐍 Python (Jupyter Notebook, Pandas, Numpy, MatplotLib, Plotly, Streamlit)
-                  - Power BI
-                  - MS Office: Word, Excel, Power Point
+                  - **SQL** (Snowflake ❄️, MS Server, Redash)
+                  - **Python** (Jupyter Notebook, Pandas, Numpy, MatplotLib, Plotly, Streamlit)
+                  - **Data visualization** (MS Power BI, Tableau)
+                  - **MS Office** (Word, Excel, Power Point, Outlook, Access)
     """)
 
 st.divider()
